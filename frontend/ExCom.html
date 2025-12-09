@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>คณะผู้บริหาร - วิทยาลัยเทคนิคชัยภูมิ</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: "Sarabun", sans-serif;
+      background: linear-gradient(135deg, #0a192f, #003366);
+      color: #f0f0f0;
+      scroll-behavior: smooth;
+    }
+
+   
+      header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgba(10, 25, 47, 0.8);
+      padding: 10px 5%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: padding 0.3s;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo-container img {
+      height: 60px;
+      width: auto;
+    }
+
+    .logo-text h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .logo-text h3 {
+      margin: 2px 0 0 0;
+      color: #00c6ff;
+      font-size: 1rem;
+      font-weight: 400;
+      opacity: 0.9;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .nav-link, .dropbtn {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1.05rem;
+      position: relative;
+      transition: 0.3s;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .nav-link::after, .dropbtn::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 2px;
+      background-color: #00c6ff;
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after, .dropdown:hover .dropbtn::after {
+      width: 100%;
+    }
+
+    .nav-link:hover, .dropdown:hover .dropbtn {
+      color: #00c6ff;
+    }
+
+    .nav-button {
+      background-color: #00c6ff;
+      color: #0a192f;
+      padding: 10px 25px;
+      border-radius: 25px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 4px 15px rgba(0,198,255,0.3);
+      transition: all 0.3s ease;
+    }
+
+    .nav-button:hover {
+      background-color: #fff;
+      color: #0078ff;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(255,255,255,0.3);
+    }
+
+    /* ===== Dropdown ===== */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: rgba(10, 25, 47, 0.95);
+      min-width: 220px;
+      border-radius: 0 0 10px 10px;
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+      animation: fadeIn 0.3s ease;
+    }
+
+    .dropdown-content a {
+      color: #f0f0f0;
+      padding: 12px 20px;
+      text-decoration: none;
+      display: block;
+      transition: background 0.3s;
+    }
+
+    .dropdown-content a:hover {
+      background: rgba(0,198,255,0.15);
+      color: #00c6ff;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    /* ===== Section ===== */
+    .executive-section {
+      padding: 160px 20px 80px;
+      max-width: 1100px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .executive-section h2 {
+      font-size: 2.4rem;
+      color: #fff;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .executive-section h2::after {
+      content: "";
+      display: block;
+      width: 90px;
+      height: 4px;
+      background-color: #00c6ff;
+      margin: 12px auto 0;
+      border-radius: 2px;
+    }
+
+    /* ===== Director ===== */
+    .director {
+      margin-bottom: 40px;
+    }
+
+    .director img {
+      width: 180px;
+      height: 230px;
+      border-radius: 15%;
+      object-fit: cover;
+      border: 4px solid #00c6ff;
+      box-shadow: 0 0 30px rgba(0,198,255,0.5);
+      margin-bottom: 15px;
+      transition: transform 0.3s ease;
+    }
+
+    .director img:hover {
+      transform: scale(1.05);
+    }
+
+    .director h2 {
+      font-size: 1.5rem;
+      color: #fff;
+      margin-bottom: 5px;
+    }
+
+    .director h3 {
+      color: #00c6ff;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    /* ===== Deputies ===== */
+    .deputy-container {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .deputy-card {
+      background-color: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 25px 20px;
+      border-radius: 20px;
+      width: 220px;
+      transition: 0.3s ease;
+    }
+
+    .deputy-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 30px rgba(0,198,255,0.3);
+    }
+
+    .deputy-card img {
+      width: 120px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 15%;
+      border: 3px solid #00c6ff;
+      margin-bottom: 12px;
+    }
+
+    .deputy-card h4 {
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+      color: #fff;
+    }
+
+    .deputy-card p {
+      font-size: 0.95rem;
+      color: #00c6ff;
+      line-height: 1.4;
+    }
+
+    /* ===== Footer ===== */
+    footer {
+      background: #061223;
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 1rem;
+      color: #aaa;
+    }
+    .footer-contact p {
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+
+    /* ===== Chatbot ===== */
+    .chatbot-btn {
+      position: fixed;
+      bottom: 40px;
+      right: 30px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #00c6ff;
+      color: #0a192f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.8rem;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: transform 0.3s, background-color 0.3s;
+      z-index: 999;
+    }
+
+    .chatbot-btn:hover {
+      transform: scale(1.1);
+      background-color: #fff;
+    }
+
+    .chatbox {
+      position: fixed;
+      bottom: 115px;
+      right: 30px;
+      width: 350px;
+      max-height: 500px;
+      background-color: rgba(10,25,47,0.95);
+      border-radius: 15px;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      z-index: 1000;
+    }
+
+    .chatbox-header {
+      background-color: #00c6ff;
+      color: #0a192f;
+      padding: 12px 18px;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .chatbox-body {
+      padding: 15px;
+      overflow-y: auto;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      min-height: 300px;
+    }
+
+    .message {
+      padding: 10px 15px;
+      border-radius: 15px;
+      max-width: 80%;
+      word-wrap: break-word;
+    }
+
+    .user-msg { align-self: flex-end; background-color: #00c6ff; color: #0a192f; }
+    .bot-msg { align-self: flex-start; background-color: #1b2b4a; color: #fff; }
+
+    .chatbox-input {
+      display: flex;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .chatbox-input input {
+      flex-grow: 1;
+      padding: 12px 15px;
+      border: none;
+      background: transparent;
+      color: #fff;
+      outline: none;
+      font-size: 1rem;
+    }
+
+    .chatbox-input button {
+      background: none;
+      border: none;
+      color: #00c6ff;
+      font-size: 1.4rem;
+      padding: 10px 15px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .chatbox-input button:hover { color: #fff; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      header { flex-direction: column; align-items: flex-start; padding: 15px; }
+      nav { flex-wrap: wrap; gap: 20px; margin-top: 10px; }
+      .executive-section { padding-top: 200px; }
+    }
+
+
+    #botControls {
+        position: fixed;
+        bottom: 30px;
+        z-index: 10000;
+        left: 50%;
+        transform: translateX(-50%);
+        user-select: none;
+        text-align: center;
+    }
+
+    /* 2. ปุ่มไมค์ 🎙️ (ตัวปุ่ม) */
+    #listenButton {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        
+        /* 🎨 ดีไซน์ใหม่: สีธีม + Glow */
+        background-color: #00c6ff;
+        color: #0a192f; /* สีไอคอนข้างใน */
+        font-size: 2rem; /* ขนาดไอคอน */
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+        /* 🎨 อนิเมชัน "หายใจ" (Pulse) */
+        box-shadow: 0 0 25px rgba(0, 198, 255, 0.5);
+        animation: pulse-breathe 2.5s infinite ease-in-out;
+        transition: all 0.3s ease;
+    }
+    #listenButton:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 35px rgba(0, 198, 255, 0.8);
+    }
+    #listenButton:disabled {
+        opacity: 0.5;
+        animation: none;
+        cursor: not-allowed;
+        transform: scale(1.0);
+    }
+
+    /* 3. ข้อความใต้ปุ่มไมค์ */
+    #statusText {
+        color: #f0f0f0; /* 🎨 สีขาว */
+        margin-top: 15px;
+        font-weight: 600;
+        text-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+
+    /* 4. กรอบบอทสี่เหลี่ยม (ล่างซ้าย) */
+    #botIntro {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        width: 300px; 
+        
+        /* 🎨 ดีไซน์ใหม่: กระจกฝ้า (Glassmorphism) */
+        background: rgba(10, 25, 47, 0.85); /* สีเดียวกับ Header */
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 198, 255, 0.3); /* ขอบสีฟ้าเรืองๆ */
+        color: #f0f0f0; /* 🎨 สีข้อความขาว */
+
+        padding: 15px;
+        padding-top: 35px; /* เพิ่มที่ว่างให้ปุ่ม X */
+        border-radius: 12px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        
+        display: none; /* เริ่มต้นด้วยการซ่อน */
+        opacity: 0;
+        transition: opacity 0.35s ease, transform 0.35s ease;
+        align-items: center;
+        z-index: 10001;
+    }
+
+    /* 5. ปุ่มหยุด (X) */
+    #botIntro .stop-button {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #f0f0f0;
+        border: none;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        font-size: 12px;
+        line-height: 24px;
+        text-align: center;
+        font-weight: bold;
+    }
+    #botIntro .stop-button:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* 6. หน้าบอท (ที่ครอบตา + ปาก) */
+    #botFace { 
+        margin-right: 12px;
+        width: 60px; /* กำหนดความกว้างคงที่ */
+    }
+
+    /* 7. 🎨 ตากะพริบ 🎨 */
+    .eye-container {
+        display: flex;
+        justify-content: space-between;
+        width: 44px; /* (14*2) + 16 */
+        margin: 0 auto 10px auto; /* 10px เหนือปาก */
+    }
+    .eye {
+        width: 14px;
+        height: 14px;
+        background: #f0f0f0;
+        border-radius: 50%;
+        animation: blink 4s infinite ease-in-out;
+    }
+    .eye.right-eye {
+        animation-delay: 0.2s; /* ให้กระพริบไม่พร้อมกัน */
+    }
+
+
+    /* 8. 🎨 ปากแบบคลื่นเสียง (Voice Wave) 🎨 */
+    #mouth.wave-mouth {
+        width: 40px; /* กว้าง 40px */
+        height: 24px; /* สูง 24px */
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end; /* แท่งเสียงเริ่มจากด้านล่าง */
+        margin-left: 10px; /* จัดกลางนิดหน่อย */
+    }
+    .wave-bar {
+        width: 7px; /* ความกว้างแท่ง (ลดลงเล็กน้อย) */
+        border-radius: 4px;
+        background-color: #00c6ff; /* 🎨 สีฟ้าธีม */
+        transition: height 0.2s ease;
+        height: 4px; /* ความสูงปกติ (ตอนไม่พูด) */
+    }
+
+    /* 8a. 🎨 อนิเมชันปาก (ตอนรอฟัง) 🎨 */
+    #botIntro.is-listening #mouth .wave-bar {
+        animation: listen-wave 1.5s infinite ease-in-out;
+    }
+    #botIntro.is-listening #mouth .wave-bar:nth-child(1) { animation-delay: 0.1s; }
+    #botIntro.is-listening #mouth .wave-bar:nth-child(2) { animation-delay: 0.3s; }
+    #botIntro.is-listening #mouth .wave-bar:nth-child(3) { animation-delay: 0.5s; }
+    #botIntro.is-listening #mouth .wave-bar:nth-child(4) { animation-delay: 0.2s; }
+
+    /* 8b. 🎨 อนิเมชันปาก (ตอนกำลังพูด) 🎨 */
+    #botIntro.is-talking #mouth .wave-bar {
+        animation: talk-wave 1s infinite ease-in-out;
+    }
+    #botIntro.is-talking #mouth .wave-bar:nth-child(1) { animation-delay: 0.1s; }
+    #botIntro.is-talking #mouth .wave-bar:nth-child(2) { animation-delay: 0.3s; }
+    #botIntro.is-talking #mouth .wave-bar:nth-child(3) { animation-delay: 0.5s; }
+    #botIntro.is-talking #mouth .wave-bar:nth-child(4) { animation-delay: 0.2s; }
+
+
+    /* 9. ข้อความบอท (กำลังพูด...) */
+    #botText {
+        font-family: "Sarabun", sans-serif;
+        color: #f0f0f0; /* 🎨 สีขาว */
+        font-size: 14px;
+        margin: 0;
+        flex: 1; /* ให้ยืดเต็มพื้นที่ที่เหลือ */
+    }
+    /* อนิเมชัน ... (จุดไข่ปลา) */
+    #botIntro.is-talking #botText:after,
+    #botIntro.is-listening #botText:after {
+        content: "...";
+        display: inline-block;
+        animation: talkingText 1s infinite;
+    }
+
+
+    /* ================================= */
+    /* 🎬 KEYFRAMES (v11.4) 🎬 */
+    /* ================================= */
+
+    /* 1. อนิเมชัน "หายใจ" (Glow) สำหรับปุ่มไมค์ */
+    @keyframes pulse-breathe {
+        0%, 100% {
+            transform: scale(1);
+            box-shadow: 0 0 25px rgba(0, 198, 255, 0.5);
+        }
+        50% {
+            transform: scale(1.05);
+            box-shadow: 0 0 35px rgba(0, 198, 255, 0.8);
+        }
+    }
+
+    /* 2. 🎨 อนิเมชัน "กะพริบตา" 🎨 */
+    @keyframes blink {
+        0%, 90%, 100% { transform: scaleY(1); }
+        95% { transform: scaleY(0.1); }
+    }
+    
+    /* 3. 🎨 อนิเมชัน "คลื่นเสียง (รอฟัง)" 🎨 */
+    @keyframes listen-wave {
+        0%, 100% { height: 4px; }
+        50% { height: 12px; }
+    }
+    
+    /* 4. 🎨 อนิเมชัน "คลื่นเสียง (พูด)" 🎨 */
+    @keyframes talk-wave {
+        0%, 100% { height: 6px; }
+        25% { height: 12px; }
+        50% { height: 24px; }
+        75% { height: 18px; }
+    }
+
+    /* 5. อนิเมชัน "..." (จุดไข่ปลา) */
+    @keyframes talkingText {
+        0% { content: '.'; }
+        33% { content: '..'; }
+        66%, 100% { content: '...'; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo-container"> 
+      <img src="im/ctc1.png" alt="โลโก้วิทยาลัย" />
+      <div class="logo-text">
+        <h2>ระบบสมัครเรียน วิทยาลัยเทคนิคชัยภูมิ</h2>
+        <h3>Chaiyaphum Technical College Enrollment System</h3>
+      </div>
+    </div>
+    <nav>
+      <a href="index.html" class="nav-link">หน้าแรก</a>
+      <div class="dropdown">
+        <button class="dropbtn">เกี่ยวกับเรา <i class="fas fa-caret-down"></i></button>
+        <div class="dropdown-content">
+          <a href="ExCom.html">คณะผู้บริหาร</a>
+          <a href="College_map.html">แผนที่วิทยาลัย</a>
+        </div>
+      </div>
+      <a href="register.html" class="nav-button">สมัครเรียน</a>
+    </nav>
+  </header>
+
+  <section class="executive-section">
+    <h2>คณะผู้บริหาร</h2>
+
+    <div class="director">
+      <img src="im/LTC_7799 (1).JPG" alt="ผู้อำนวยการ">
+      <h2>ดร.กรรณิกา ยอดสง่า</h2>
+      <h3>ผู้อำนวยการวิทยาลัยเทคนิคชัยภูมิ</h3>
+      <p>โทร. 044 812 076</p>
+    </div>
+
+    <div class="deputy-container">
+      <div class="deputy-card">
+        <img src="im/77.png" alt="">
+        <h4>นายวีระ ชานนท์</h4>
+        <p>รองผู้อำนวยการฝ่ายวิชาการ</p>
+        <p style="color:#f0f0f0; font-size: 14px;">092 926 9387</p>
+      </div>
+      <div class="deputy-card">
+        <img src="im/44.png" alt="">
+        <h4>นายปรีชา อารีวงษ์</h4>
+        <p>รองผู้อำนวยการฝ่ายบริหารทรัพยากร</p>
+        <p style="color:#f0f0f0; font-size: 14px;">083 026 1596</p>
+      </div>
+      <div class="deputy-card">
+        <img src="im/88.png" alt="">
+        <h4>นางอังคณา เบ็ญจศิล</h4>
+        <p>รองผู้อำนวยการฝ่ายแผนงานและความร่วมมือ</p>
+        <p style="color:#f0f0f0; font-size: 14px;">095 425 1224</p>
+      </div>
+      <div class="deputy-card">
+        <img src="im/45.png" alt="">
+        <h4>นายวินัย บัวกลาง</h4>
+        <p>รองผู้อำนวยการฝ่ายพัฒนากิจการนักเรียนนักศึกษา</p>
+        <p style="color:#f0f0f0; font-size: 14px;">080 351 9361</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-contact">
+        <p>
+          วิทยาลัยเทคนิคชัยภูมิ | 240 หมู่ 4 ถนนองค์การบริหารส่วนจังหวัด สาย 2 ตำบลในเมือง อำเภอเมือง จังหวัดชัยภูมิ 36000<br>
+          โทรศัพท์: 0-4481-2075
+        </p>
+      </div>
+      <div class="footer-copyright">
+        <p>© 2025 วิทยาลัยเทคนิคชัยภูมิ | พัฒนาโดยแผนกเทคโนโลยีสารสนเทศ</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Chatbot -->
+  <div class="chatbot-btn" id="chatbotBtn"><i class="fas fa-robot"></i></div>
+  <div class="chatbox" id="chatbox">
+    <div class="chatbox-header">
+      CTC AI Chat
+      <span style="cursor:pointer;" id="closeChat">✖</span>
+    </div>
+    <div class="chatbox-body" id="chatBody">
+      <div class="bot-msg message">สวัสดีค่ะ ฉันคือ CTC AI! ต้องการให้ช่วยอะไรไหมคะ 😊</div>
+    </div>
+    <div class="chatbox-input">
+      <input type="text" id="chatInput" placeholder="พิมพ์ข้อความ..." />
+      <button id="sendMsg"><i class="fas fa-paper-plane"></i></button>
+    </div>
+  </div>
+
+  <div id="botIntro">
+    
+    <button id="stopBotBtn" class="stop-button" title="หยุด">✖</button>
+    
+    <div id="botFace">
+        <div class="eye-container">
+            <div class="eye left-eye"></div>
+            <div class="eye right-eye"></div>
+        </div>
+        <div id="mouth" class="wave-mouth">
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+        </div>
+    </div>
+    <p id="botText">กำลังพูด</p>
+  </div>
+
+  <audio id="botVoice" src="im/สวัสดีครับ (1).mp3" preload="auto"></audio>
+  
+  <div id="botControls">
+      <button id="listenButton" title="พูดกับ AI">
+          <i class="fas fa-microphone"></i>
+      </button>
+      <p id="statusText">
+          กดปุ่มเพื่อเริ่มพูด
+      </p>
+  </div>
+
+
+ 
+ 
+<script>
+// เราจะใช้ 'DOMContentLoaded' เพียงครั้งเดียว
+document.addEventListener('DOMContentLoaded', function() {
+
+    // ===========================================
+    // ===== 🚀 PAGE SCRIPT (Slider, Chat, etc) =====
+    // ===========================================
+    
+    // (โค้ด Slider ของคุณ...)
+    const sliderWrapper = document.querySelector('.slider-wrapper');
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dotsContainer = document.querySelector('.slider-dots');
+    if (slides.length > 0) {
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+        let slideInterval = null;
+        if (dotsContainer) {
+            for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+            }
+        }
+        function updateSlider() {
+            if (sliderWrapper) {
+            sliderWrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+            }
+            const dots = document.querySelectorAll('.dot');
+            if (dots.length > 0) {
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
+            });
+            }
+        }
+        function goToSlide(index) {
+            currentIndex = index;
+            updateSlider();
+            resetInterval();
+        }
+        function showNextSlide() {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            updateSlider();
+        }
+        function showPrevSlide() {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            updateSlider();
+        }
+        function startInterval() {
+            slideInterval = setInterval(showNextSlide, 5000);
+        }
+        function resetInterval() {
+            if (slideInterval) clearInterval(slideInterval);
+            startInterval();
+        }
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+            showNextSlide();
+            resetInterval();
+            });
+        }
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+            showPrevSlide();
+            resetInterval();
+            });
+        }
+        updateSlider();
+        startInterval();
+    }
+    
+    // (โค้ด Chatbox ของคุณ...)
+    const chatBtn = document.getElementById('chatbotBtn');
+    const chatbox = document.getElementById('chatbox');
+    const closeChat = document.getElementById('closeChat');
+    const chatBody = document.getElementById('chatBody');
+    const sendBtn = document.getElementById('sendMsg');
+    const chatInput = document.getElementById('chatInput');
+    if (chatBtn && chatbox && closeChat && chatBody && sendBtn && chatInput) {
+        function appendMessage(text, sender = 'user') {
+            const msg = document.createElement('div');
+            msg.classList.add('message', sender === 'user' ? 'user-msg' : 'bot-msg');
+            msg.textContent = text;
+            chatBody.appendChild(msg);
+            chatBody.scrollTop = chatBody.scrollHeight;
+            return msg;
+        }
+        chatBtn.addEventListener('click', () => {
+            chatbox.style.display = 'flex';
+            chatInput.focus();
+        });
+        closeChat.addEventListener('click', () => {
+            chatbox.style.display = 'none';
+        });
+        
+        async function sendMessage() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+            appendMessage(text, 'user');
+            chatInput.value = '';
+            const loadingMsg = appendMessage("กำลังประมวลผล...", 'bot');
+            try {
+            const response = await fetch('http://localhost:3401/api/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt: text }), 
+            });
+            if (!response.ok) { throw new Error('Network response was not ok'); }
+            const data = await response.json();
+            const reply = data.response || data.reply || 'ขออภัย ไม่พบคำตอบ';
+            loadingMsg.textContent = reply;
+            } catch (error) {
+            console.error('Error:', error);
+            loadingMsg.textContent = 'ขออภัยค่ะ เกิดข้อผิดพลาดในการเชื่อมต่อ';
+            }
+        }
+
+        sendBtn.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', e => {
+            if (e.key === 'Enter') {
+            e.preventDefault();
+            sendMessage();
+            }
+        });
+    }
+
+    console.log("✅ Page Scripts (Slider, Chat) Initialized");
+
+
+    // =======================================================
+    // 🤖 BOT LOGIC (v12.4 - Single Play Logic)
+    // =======================================================
+
+    // ----------------------------------------------------
+    // ⚠️ 1. การตั้งค่าสำหรับการ Polling
+    // ----------------------------------------------------
+    const BOT_STATUS_API_URL = 'http://localhost:3401/api/bot/status'; 
+    const CHECK_INTERVAL_MS = 2000; 
+    // ⚠️ ตรวจสอบว่า Path ไฟล์เสียงนี้ถูกต้องหรือไม่
+    const BOT_AUDIO_PATH = 'im/สวัสดีครับ (1).mp3'; 
+    
+    // ----------------------------------------------------
+    // 2. ตัวแปรสถานะและ Elements
+    // ----------------------------------------------------
+    let botIntro = null;
+    let botText = null;
+    let listenButton = null; 
+    let statusText = null;
+    let stopBotBtn = null; 
+
+    let isIntroVisible = false;
+    let isBotVoicePlaying = false; 
+    let isVoiceBotActive = false; // true ถ้าบอทเสียง (ไมค์) ทำงานอยู่ (Manual Chat)
+    let audioUnlocked = false; 
+    let lastServerCount = 0; // รอบการพูดล่าสุดที่ Client รับรู้ (0 หรือ 1)
+    let currentPollingTimeout = null; 
+    
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    let recognition = null;
+    const synth = window.speechSynthesis; 
+    
+    // ---------- Helpers (สำหรับ Bot UI) ----------
+    function safeGet(id) { return document.getElementById(id); }
+    
+    function showIntroUI() {
+      if (!botIntro) return;
+      botIntro.style.display = "flex";
+      setTimeout(() => { botIntro.style.opacity = "1"; }, 10);
+      isIntroVisible = true;
+    }
+    function hideIntroUI() {
+      if (!botIntro) return;
+      botIntro.style.opacity = "0";
+      setTimeout(() => {
+        if (botIntro) botIntro.style.display = "none";
+        isIntroVisible = false;
+      }, 350); 
+    }
+    
+    function startMouthAnim(state = 'listen') {
+        if (!botIntro) return;
+        if (state === 'speak') {
+            botIntro.classList.remove('is-listening');
+            botIntro.classList.add('is-talking');
+        } else { // 'listen'
+            botIntro.classList.remove('is-talking');
+            botIntro.classList.add('is-listening');
+        }
+    }
+    function stopMouthAnim() {
+        if (botIntro) {
+            botIntro.classList.remove('is-listening');
+            botIntro.classList.remove('is-talking');
+        }
+    }
+
+    // ---------- 🎙️ 3. ฟังก์ชันของ "บอทเสียง" 🎙️ (Manual Chat) ----------
+
+    function cancelVoiceBot(hide = true) {
+        isVoiceBotActive = false; 
+        
+        if (recognition) { try { recognition.stop(); } catch(e) {} }
+        try { synth.cancel(); } catch(e) {}
+        stopMouthAnim();
+
+        // การซ่อน UI ต้องเช็คสถานะเซนเซอร์ด้วย
+        if (hide && lastServerCount === 0) { 
+            hideIntroUI();
+        } else if (!hide && isIntroVisible) {
+             if (botText) botText.textContent = "ถามต่อได้เลยครับ";
+             stopMouthAnim(); 
+        }
+
+        if (listenButton) {
+            listenButton.disabled = false;
+        }
+        if (statusText) {
+            statusText.textContent = "กดปุ่มเพื่อเริ่มพูด";
+        }
+         // รีสตาร์ท Polling ทันทีที่บอทเสียงหยุดทำงาน
+        if (currentPollingTimeout) clearTimeout(currentPollingTimeout);
+        currentPollingTimeout = setTimeout(checkBotStatus, 1000); 
+    }
+    
+    function speakText(text) {
+      try { synth.cancel(); } catch (e) {}
+      
+      const u = new SpeechSynthesisUtterance(text || "");
+      u.lang = "th-TH";
+      u.rate = 1.05;
+      
+      u.onstart = () => {
+        startMouthAnim('speak'); 
+        if (!isIntroVisible) showIntroUI(); 
+        if (botText) botText.textContent = "กำลังตอบ";
+      };
+      
+      u.onend = () => {
+        cancelVoiceBot(false); 
+        isVoiceBotActive = true; 
+        if (botText) botText.textContent = "ถามต่อได้เลยครับ";
+      };
+      
+      synth.speak(u);
+    }
+    
+    async function getOllamaResponse(userPrompt) {
+      if (botText) botText.textContent = "กำลังประมวลผล";
+      if (statusText) statusText.textContent = "กำลังคิด... 🧠";
+      startMouthAnim('speak'); 
+    
+      try {
+        const API_ENDPOINT = "http://localhost:3401/api/chat";
+        const res = await fetch(API_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt: userPrompt }),
+        });
+        if (!res.ok) throw new Error("response not ok " + res.status);
+        const data = await res.json();
+        const reply = data.response || data.reply || "ขออภัย ไม่พบคำตอบ";
+        speakText(reply);
+      } catch (err) {
+        console.error("Error calling backend:", err);
+        speakText("ขออภัยค่ะ เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์");
+      }
+    }
+
+    // ---------- 🔊 4. ฟังก์ชันของ "บอท Sensor" 🔊 ----------
+    
+    /**
+     * @description เล่นเสียงต้อนรับ (เล่นครั้งเดียวเท่านั้น)
+     */
+    function playSensorAudio() {
+        // 1. ตรวจสอบเงื่อนไขการเล่นเสียง
+        if (isBotVoicePlaying || isVoiceBotActive) {
+            return;
+        }
+
+        isBotVoicePlaying = true;
+        
+        // 2. แสดง UI และตั้งสถานะ
+        showIntroUI();
+        startMouthAnim('speak'); 
+        if (botText) botText.textContent = `ยินดีต้อนรับ`; 
+       
+
+        // 3. สร้างและเล่น Audio Element
+        const tempAudio = new Audio(BOT_AUDIO_PATH);
+        
+        tempAudio.onended = () => {
+            isBotVoicePlaying = false; 
+            
+            // 4. อัปเดต UI เมื่อเสียงจบ (พูดจบแล้ว คง UI ไว้รอถามต่อ)
+            if (botText) botText.textContent = "พร้อมช่วยเหลือครับ/ถามต่อได้เลย";
+            stopMouthAnim(); 
+            
+            // เรียก Polling ต่อทันที
+            clearTimeout(currentPollingTimeout);
+            currentPollingTimeout = setTimeout(checkBotStatus, 1000); 
+        };
+
+        tempAudio.onerror = (e) => {
+            console.error("Audio playback error:", e);
+            isBotVoicePlaying = false;
+            if (botText) botText.textContent = "เกิดข้อผิดพลาดด้านเสียง (เช็ค path/ไฟล์)";
+            stopMouthAnim();
+            clearTimeout(currentPollingTimeout);
+            currentPollingTimeout = setTimeout(checkBotStatus, CHECK_INTERVAL_MS); 
+        };
+
+        tempAudio.play().catch(err => {
+            console.warn("Audio play failed (no user gesture?):", err);
+            isBotVoicePlaying = false;
+            if (botText) botText.textContent = "ไม่สามารถเล่นเสียงได้ (บราวเซอร์บล็อก)";
+            stopMouthAnim();
+            clearTimeout(currentPollingTimeout);
+            currentPollingTimeout = setTimeout(checkBotStatus, CHECK_INTERVAL_MS); 
+        });
+    }
+
+    /**
+     * @description Polling สถานะเซนเซอร์และสถานะการพูดจาก Backend
+     */
+    async function checkBotStatus() {
+        // ห้ามรบกวนการทำงานของบอทอื่น
+        if (isBotVoicePlaying || isVoiceBotActive || synth.speaking) {
+            currentPollingTimeout = setTimeout(checkBotStatus, CHECK_INTERVAL_MS);
+            return; 
+        }
+
+        try {
+            const res = await fetch(BOT_STATUS_API_URL, { 
+                method: 'GET',
+                headers: { 'Cache-Control': 'no-cache' } 
+            });
+            if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+            const data = await res.json();
+            
+            const isPresence = data.isPresence || data.is_person_near; 
+            const currentCount = data.count || data.playCount; 
+
+            // 1. ตรวจสอบการมีอยู่ของคน
+            if (isPresence && currentCount > 0) {
+                // MODIFIED LOGIC: เล่นเสียงเฉพาะเมื่อ count เป็น 1 และเป็นรอบใหม่เท่านั้น (0 -> 1)
+                if (currentCount >= 1 && lastServerCount === 0) {
+                    console.log(`✅ [POLL] Server สั่งพูดรอบแรก (1/1)`);
+                    playSensorAudio(); 
+                    lastServerCount = 1; // กำหนดให้ lastServerCount เป็น 1 เพื่อไม่ให้พูดซ้ำ
+                } else if (currentCount >= 1) { 
+                    // มีคนอยู่ แต่พูดจบแล้ว ให้คง UI ไว้รอถามต่อ
+                    if (isIntroVisible) {
+                        if (botText) botText.textContent = "พร้อมช่วยเหลือครับ/ถามต่อได้เลย";
+                        stopMouthAnim();
+                    } else {
+                        // กรณี Polling พลาดไปตอนพูด ให้แสดง UI ค้างไว้
+                        showIntroUI();
+                        if (botText) botText.textContent = "พร้อมช่วยเหลือครับ/ถามต่อได้เลย";
+                        stopMouthAnim();
+                    }
+                }
+            } else {
+                // ไม่มีคนอยู่ (isPresence: false หรือ count: 0)
+                if (isIntroVisible && !isVoiceBotActive) { 
+                    console.log("Presence lost. Hiding UI.");
+                    hideIntroUI();
+                }
+                lastServerCount = 0; // รีเซ็ตสถานะการพูดเมื่อคนออกไปแล้ว
+            }
+
+         
+            
+        } catch (err) {
+            console.error("Error polling bot status:", err);
+            if (statusText) statusText.textContent = "❌ Error Polling: " + err.message;
+        }
+        
+        // Polling ซ้ำ
+        if (!isBotVoicePlaying) {
+             currentPollingTimeout = setTimeout(checkBotStatus, CHECK_INTERVAL_MS);
+        }
+    }
+
+
+    // ---------- 5. Initialize (ตั้งค่าเริ่มต้น) ----------
+    
+    function tryUnlockAudioOnGesture() {
+      if (audioUnlocked) return;
+      const tempAudio = new Audio(BOT_AUDIO_PATH);
+      tempAudio.play().then(() => {
+        tempAudio.pause();
+        tempAudio.currentTime = 0;
+        audioUnlocked = true;
+        console.log("🔓 Audio unlocked by user gesture.");
+      }).catch(err => {
+        audioUnlocked = true; 
+        console.warn("⚠️ Audio unlock attempt rejected:", err);
+      });
+    }
+    
+    // 1. หา Elements ของ Bot ทั้งหมด
+    botIntro = safeGet("botIntro"); 
+    botText = safeGet("botText");
+    listenButton = safeGet("listenButton");
+    statusText = safeGet("statusText");
+    stopBotBtn = safeGet("stopBotBtn"); 
+    
+    // 2. ปลดล็อคเสียง
+    ["click", "touchstart", "keydown"].forEach(evt => {
+      document.addEventListener(evt, tryUnlockAudioOnGesture, { once: true, passive: true });
+    });
+    
+    // 3. 🤖 เริ่ม "บอท Sensor Polling"
+    checkBotStatus(); 
+    
+    // 4. ตั้งค่า "บอทเสียง" (SpeechRecognition)
+    if (!SpeechRecognition) {
+      if (statusText) statusText.textContent = "บราวเซอร์ของคุณไม่รองรับการพูด";
+    } else {
+      recognition = new SpeechRecognition();
+      recognition.lang = "th-TH";
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+    
+      recognition.addEventListener("result", (ev) => {
+        try {
+          const transcript = ev.results[0][0].transcript;
+          if (statusText) statusText.textContent = `คุณพูดว่า: "${transcript}"`;
+          getOllamaResponse(transcript); 
+        } catch (e) { console.error("Recognition result error:", e); }
+      });
+      
+      recognition.addEventListener("speechend", () => {
+        try { recognition.stop(); } catch (e) {}
+      });
+      
+      recognition.addEventListener("error", (ev) => {
+        const errorMsg = ev.error === "no-speech" ? "ไม่ได้ยินเสียง... ลองอีกครั้ง" : "เกิดข้อผิดพลาด: " + ev.error;
+        cancelVoiceBot(false); 
+        if (botText) botText.textContent = errorMsg; 
+        if (statusText) statusText.textContent = errorMsg;
+      });
+    }
+    
+    // 5. 🎙️ Event ปุ่มไมโครโฟน
+    if (listenButton) {
+      listenButton.addEventListener("click", (e) => {
+        e.stopPropagation(); 
+        tryUnlockAudioOnGesture(); 
+        
+        if (isBotVoicePlaying) { isBotVoicePlaying = false; }
+        clearTimeout(currentPollingTimeout); // หยุด Polling ชั่วคราว
+        
+        isVoiceBotActive = true; 
+        lastServerCount = 1; // ตั้งเป็น 1 เพื่อป้องกันการพูดต้อนรับซ้ำ
+        try { synth.cancel(); } catch (e) {}
+    
+        if (!recognition) {
+          if (statusText) statusText.textContent = "บราวเซอร์ไม่รองรับการฟังด้วยเสียง";
+          return;
+        }
+    
+        showIntroUI();
+        startMouthAnim('listen'); 
+        if (statusText) statusText.textContent = "กำลังฟัง... 🎙️";
+        if (botText) botText.textContent = "กำลังฟัง";
+        if (listenButton) { listenButton.disabled = true; }
+    
+        try {
+          recognition.start();
+        } catch (err) {
+          console.error("recognition.start error:", err);
+          cancelVoiceBot(false); 
+        }
+      });
+    }
+
+    // 6. ✖️ Event ปุ่มหยุด (X)
+    if (stopBotBtn) {
+        stopBotBtn.addEventListener("click", (e) => {
+            e.stopPropagation(); 
+            if (isBotVoicePlaying) { isBotVoicePlaying = false; }
+            cancelVoiceBot(true); // ซ่อน UI
+        });
+    }
+    
+    console.log("✅ Bot Frontend (v12.4 - Single Play Logic) Initialized");
+
+});
+</script>
+</body>
+</html>
